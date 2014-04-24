@@ -12,7 +12,7 @@ Uses cases are divided up by the core class used in the archive, specified as th
 # Occurrence
 Classic, simple and flat records using the Occurrence rowType with all available dwc terms (only excluding [MeasurementsAndFacts](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) and [ResourceRelationship](http://rs.gbif.org/extension/dwc/resource_relation.xml) terms).
 
-The location, event and taxon identification terms are all included in the core and a single occurrence record must therefore be taxonomically homogenous. It is adequate though to publish a single record for multiple individuals - dwc:individualCount can be used to declare exact numbers or a [new term currently under discussion](#abundance-terms) for a more general abundance/quantity measurement suitable also for organisms like protists, fungi, grasses, etc.
+The location, event and taxon identification terms are all included in the core and a single occurrence record must therefore be taxonomically homogenous. It is adequate though to publish a single record for multiple individuals - dwc:individualCount can be used to declare exact numbers or a [new term currently under discussion](#abundance-term) for a more general abundance/quantity measurement suitable also for organisms like protists, fungi, grasses, etc.
 
 The *dwc:basisOfRecord* term is used in this scenario to mark specimen, fossil, observation or living organism records. 
 
@@ -58,7 +58,7 @@ occurrenceStatus
 
 
 # Open questions
-### Abundance term(s)
+### Abundance term
 What exact new terms are needed to model various ways of measuring species abundance.
 Open Darwin Core issues [#142](https://code.google.com/p/darwincore/issues/detail?id=142) & [#187](https://code.google.com/p/darwincore/issues/detail?id=187)
 
