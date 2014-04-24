@@ -1,11 +1,11 @@
 Darwin Core Archive Examples
 =============
 
-This document tries to cover current or intendend uses of Darwin Core Archives that contain some sort of primary biodiversity data, i.e. primary species occurrence records. It tries not to explain the Darwin Core Archives format as such and assumes the reader knows about the technical details. For format details please see the following sources:
+This document tries to cover current or intendend uses of Darwin Core Archives that contain some sort of primary biodiversity data, i.e. primary species occurrence records. It tries not to explain the Darwin Core Archives format as such or Darwin Core in general and assumes the reader knows about the technical details. For details please refer to the following sources:
 
+ * Darwin Core Terms: http://rs.tdwg.org/dwc/terms/index.htm
  * GBIF how to guide: http://www.gbif.org/resources/2552
  * Official meta.xml specs: http://rs.tdwg.org/dwc/terms/guides/text/index.htm
- * http://en.wikipedia.org/wiki/Darwin_Core_Archive
 
 Uses cases are divided up by the core class used in the archive, specified as the *rowType* in the [meta.xml](http://rs.tdwg.org/dwc/terms/guides/text/index.htm).
 
@@ -41,14 +41,20 @@ This extension was designed to also publish absence data indicated by an appropi
 
 
 # Event
-EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data, i.e. species abundance data and measurements about the survey site using the [MeasurementsAndFacts extension](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) in one archive. The Event core holds data about the where and when, so it covers all terms from Location, GeologicalContext and Event. 
+EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data [with the help of the IPT](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
+
+The (Recording)Event core holds data about the where and when, so it covers all terms from Location, GeologicalContext and Event. 
+
 
 ## Occurrence extension
 Using the Occurrence rowType as an extension to the Event core (together with some abundance term, see [Occurrence] above) allows to publish species abundance matrices such as Braun Blanquet vegetation plots or long term monitoring data.
 
 As the Event core already covers Location, GeologicalContext and Event terms, the extension data only needs to hold Taxon, Identification and Occurrence terms. In some cases the actual extension data can be very simple and only use the occurrenceID and scientificName terms. Although abundance, individualCount, occurrenceStatus, recordedBy, recordNumber, sex, establishmentMeans and lifeStage should be useful additional terms in many cases.
 
-occurrenceStatus
+Populating *occurrenceStatus* with *absent* allows in principle to also publish absence data as available in many surveys. It needs to be supplied explicitly for every species though so the approach is somewhat limited compared to declaring some taxonomic sampling context for the entire event or dataset.
+
+## MeasurementsAndFacts extension
+Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) linked to a core Event allows to publish measurements about a site like temperature or soil acidity. The downside is one cannot describe measurements about a single specimen or observation as these are living in an extension as well.
 
 
 # MaterialSample
