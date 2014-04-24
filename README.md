@@ -76,6 +76,8 @@ Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_o
 # MaterialSample
 Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms/index.htm#MaterialSample) in 2013 which can be used to publish occurrence data in new ways. A key driver for this new term are gene sequence based biodiversity data that are based on some sampling like tissue extractions, water or soil samples. Right now there are 2 different proposals existing to use a MaterialSample core in Darwin Core archives mainly differing in the cardinality of a sample and species occurrence.
 
+TODO: Newly proposed material, environment, biome terms and existing dwc:habitat. EnVO ...
+
 ## "Specimen" core
 As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [MaterialSample core](http://rs.gbif.org/sandbox/core/dwc_material_sample.xml) that contains all terms a simple [Occurrence](#Occurrence) core also provides, but using the rowType *dwc:MaterialSample* with the *dwc:materialSampleID* identifier instead of *dwc:occurrenceID*.
 
