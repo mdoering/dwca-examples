@@ -18,21 +18,33 @@ The *dwc:basisOfRecord* term is used in this scenario to mark specimen, fossil, 
 
 
 # Taxon
-Archives using the Taxon class as the core are mostly referred to as *checklists*. They use only the taxonomic terms in the core and have extensions to publish data about specimens, vernacular names, literature, multimedia and more.
+Archives using the Taxon class as the core are mostly referred to as *checklists*. They use only the taxonomic terms in the core and have extensions to publish data about specimens, descriptions, vernacular names, literature, multimedia and other data about taxa.
 
 ### Occurrence extension
-The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment. As the taxon terms are already used in the core the Occurrence extension covers the remaining Location, Event, GeologicalContext, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecord).
+The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large chinese checklist as part of Species2000 with occurrence data in an extension. 
+
+As the taxon terms are already used in the core the Occurrence extension covers the remaining Location, Event, GeologicalContext, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecord).
 
 Note that GBIF requires the presence of a unique *dwc:occurrenceID* although this is not strictly mandated by the dwc archive specification which only requires an identifier for the core records, not for extensions.
 
-Example Plazi dataset *"Six new species of ants from Egypt"*:
- * DwC-A: http://plazi.cs.umb.edu/GgServer/dwca/D4F853101EB8608A8BD0E5B08F2CB167.zip
+__Example Plazi dataset__ *"Six new species of ants from Egypt"*:
+ * DwC archive: http://plazi.cs.umb.edu/GgServer/dwca/D4F853101EB8608A8BD0E5B08F2CB167.zip
  * GBIF dataset page: http://www.gbif.org/dataset/1586aec3-17ca-44c7-ba95-a38c2a467465	
 
-### TypesAndSpecimen extension
-Alternatively to an extension based on the Occurrence rowType GBIF/GNA had defined a special, small extension to publish the type material found in taxonomic literature: http://rs.gbif.org/extension/gbif/1.0/typesandspecimen.xml
+__Example checklist__ *3i - Cicadellinae Database*:
+ * DwC archive: http://ctap.inhs.uiuc.edu/dmitriev/Export/DwCArchive_Cicadellinae.zip
+ * GBIF dataset page: http://www.gbif.org/dataset/26bca1b5-3ef6-4e97-9672-0058c79185fb
 
-It is pretty much a subset of Occurrence and was designed before anyone was using the Occurrence rowType as an extension. Note that there is no occurrenceID or any other similar identifier in this extension.
+### TypesAndSpecimen extension
+Alternatively to an extension based on the Occurrence rowType GBIF had previously defined a special, small extension to publish the type material found in taxonomic literature: http://rs.gbif.org/extension/gbif/1.0/typesandspecimen.xml
+
+It is pretty much a subset of Occurrence and was designed before anyone was using the Occurrence rowType as an extension. Note that there is no occurrenceID or any other similar identifier in this extension. The extension is in use by some checklist datasets, notably the datasets published by the [Species File Group](http://www.gbif.org/publisher/47a779a6-a230-4edd-b787-19c3d2c80ab5). Rod Page
+
+__Example checklist__ *Orthoptera Species File*:
+ * DwC archive: http://ipt.speciesfile.org:8080/archive.do?r=orthoptera
+ * GBIF dataset page: http://www.gbif.org/dataset/af66d4cf-0fd2-434b-9334-9806a5efa6f7
+
+
 
 ### Distribution extension
 Another checklist extension was created to publish synthesized species distributions/ranges often found in Faunas and Floras. A distribution record does not listen exact point locations of a species, but instead indicate some larger area like a country or a biogeographic region: http://rs.gbif.org/extension/gbif/1.0/distribution.xml
@@ -48,6 +60,8 @@ To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffor
 
 Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
 
+The core event records would use *dwc:eventID* as the primary key to the core records.
+
 ## Occurrence extension
 Using the Occurrence rowType as an extension to the Event core (together with some [abundance term](#abundance-term)) allows to publish species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data.
 
@@ -56,12 +70,25 @@ As the Event core already covers Location, GeologicalContext and Event terms, th
 Populating *occurrenceStatus* with *absent* allows in principle to also publish absence data as available in many surveys. It needs to be supplied explicitly for every species though so the approach is somewhat limited compared to declaring some taxonomic sampling context for the entire event or dataset.
 
 ## MeasurementsAndFacts extension
-Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) linked to a core Event allows to publish measurements about a site like temperature or soil acidity. The downside is one cannot describe measurements about a single specimen or observation as these are living in an extension as well.
+Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) linked to a core Event allows to publish measurements about a site like temperature or soil acidity. On the downside one cannot describe measurements about a single specimen or observation as these are living in an extension as well.
 
 
 # MaterialSample
-## incl Occurrence core
+Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms/index.htm#MaterialSample) in 2013 which can be used to publish occurrence data in new ways. A key driver for this new term are gene sequence based biodiversity data that are based on some sampling like tissue extractions, water or soil samples. Right now there are 2 different proposals existing to use a MaterialSample core in Darwin Core archives mainly differing in the cardinality of a sample and species occurrence.
+
+## "Specimen" core
+As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [MaterialSample core](http://rs.gbif.org/sandbox/core/dwc_material_sample.xml) that contains all terms a simple [Occurrence](#Occurrence) core also provides, but using the rowType *dwc:MaterialSample* with the *dwc:materialSampleID* identifier instead of *dwc:occurrenceID*.
+
+It is proposed to use this rowType for all specimens, fossils and living organisms to make them distinct from pure observations which should still be using the *dwc:Occurrence* core. It can then also be used to publish data from the Global Genome Biodiversity Network, see [TDWG 2013 report](TDWG2013GGBNWGReport_final.docx).
+
+An important requirement for (DNA) sampling is that one can follow back the chain of sampling/extracting. For this the generic ResourceRelationship extension could be used again if there is a shared, globally understood vocabulary. Alternatively a new term such as *parentMaterialSampleID* could build up such a link. The problem is very much the same as for [relating events](#).
+
+As the core contains the Taxon and Identification terms it can only be used to describe samples that contain (or a derived from?) a single taxon. This prevents it's use for environmental samples.
+
 ## Occurrence extension
+Based on the needs for environmental sampling and their subsequent metagenomic DNA sequencing the MaterialSample core could be restricted to just the sampling event covering terms from Location, Event, GeologicalContext and MaterialSample. Taxon abundance data would be stored in an *dwc:Occurrence* extension that covers the remaining Taxon, Identification and Occurrence terms. This setup is very much the same as for sample-based data using the *dwc:Event* core, but using the *dwc:MaterialSample* rowType and a different *dwc:materialSampleID* identifier.
+
+For metagenomic results every cell of an [OTU abundance table](http://www.wernerlab.org/teaching/qiime/overview/c) would become an occurrence extension record with the abundance given using the [new term](#abundance-term). A standard format for OTU tables is the [biom format](http://biom-format.org/documentation/biom_format.html).
 
 
 
