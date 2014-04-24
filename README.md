@@ -44,10 +44,12 @@ This extension was designed to also publish absence data indicated by an appropi
 EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data [with the help of the IPT](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
 
 The (Recording)Event core holds data about the where and when, so it covers all terms from Location, GeologicalContext and Event. 
+To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffort from the Event group can be used.
 
+Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
 
 ## Occurrence extension
-Using the Occurrence rowType as an extension to the Event core (together with some abundance term, see [Occurrence] above) allows to publish species abundance matrices such as Braun Blanquet vegetation plots or long term monitoring data.
+Using the Occurrence rowType as an extension to the Event core (together with some [abundance term](#abundance-term)) allows to publish species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data.
 
 As the Event core already covers Location, GeologicalContext and Event terms, the extension data only needs to hold Taxon, Identification and Occurrence terms. In some cases the actual extension data can be very simple and only use the occurrenceID and scientificName terms. Although abundance, individualCount, occurrenceStatus, recordedBy, recordNumber, sex, establishmentMeans and lifeStage should be useful additional terms in many cases.
 
@@ -67,6 +69,8 @@ Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_o
 ### Abundance term
 What exact new terms are needed to model various ways of measuring species abundance.
 Open Darwin Core issues [#142](https://code.google.com/p/darwincore/issues/detail?id=142) & [#187](https://code.google.com/p/darwincore/issues/detail?id=187)
+
+### ResourceRelationship, eventSeries or parentEventID
 
 ### Are both Event & MaterialSampe core needed ?
 
