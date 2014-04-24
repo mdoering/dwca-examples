@@ -18,17 +18,14 @@ The dwc:basisOfRecord term is used in this scenario to mark specimen, fossil, ob
 
 
 # Taxon
-Archives using the Taxon class as the core are mostly referred to as *checklists*. They only use the taxonomic terms in the core and use extensions to publish data about specimens, vernacular names, literature, multimedia and more.
+Archives using the Taxon class as the core are mostly referred to as *checklists*. They use only the taxonomic terms in the core and have extensions to publish data about specimens, vernacular names, literature, multimedia and more.
 
 ### Occurrence extension
-In use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment.
+The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment. As the taxon terms are already used in the core the Occurrence extension only covers the Location, Event, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecrod).
 
 Example Plazi dataset *"Six new species of ants from Egypt"*:
  * DwC-A: http://plazi.cs.umb.edu/GgServer/dwca/D4F853101EB8608A8BD0E5B08F2CB167.zip
  * GBIF dataset page: http://www.gbif.org/dataset/1586aec3-17ca-44c7-ba95-a38c2a467465	
-
-As the taxon terms are already used in the core the Occurrence extension only covers the Location, Event, Identification & Occurrence terms.
-In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecrod).
 
 ### TypesAndSpecimen extension
 Alternatively to an extension based on the Occurrence rowType GBIF/GNA had defined a special, small extension to publish the type material found in taxonomic literature: http://rs.gbif.org/extension/gbif/1.0/typesandspecimen.xml
