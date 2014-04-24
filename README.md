@@ -40,11 +40,12 @@ This extension was designed to also publish absence data indicated by an appropi
 
 # Event
 
+## Occurrence extension
+
 
 # MaterialSample
-##
+## incl Occurrence core
+## Occurrence extension
 
 
 
-
-https://code.google.com/p/darwincore/issues/detail?id=187
