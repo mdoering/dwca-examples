@@ -12,6 +12,8 @@ Uses cases are divided up by the core class used in the archive, specified as th
 # Occurrence
 Classic, simple and flat records using the Occurrence rowType with all available dwc terms (only excluding [MeasurementsAndFacts](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) and [ResourceRelationship](http://rs.gbif.org/extension/dwc/resource_relation.xml) terms).
 
+![occurrence](occurrence.png)
+
 The location, event and taxon identification terms are all included in the core and a single occurrence record must therefore be taxonomically homogenous. It is adequate though to publish a single record for multiple individuals - dwc:individualCount can be used to declare exact numbers or a [new term currently under discussion](#abundance-term) for a more general abundance/quantity measurement suitable also for organisms like protists, fungi, grasses, etc.
 
 The *dwc:basisOfRecord* term is used in this scenario to mark specimen, fossil, observation or living organism records. 
@@ -19,6 +21,8 @@ The *dwc:basisOfRecord* term is used in this scenario to mark specimen, fossil, 
 
 # Taxon
 Archives using the Taxon class as the core are mostly referred to as *checklists*. They use only the taxonomic terms in the core and have extensions to publish data about specimens, descriptions, vernacular names, literature, multimedia and other data about taxa.
+
+![taxon](taxon.png)
 
 ### Occurrence extension
 The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large chinese checklist as part of Species2000 with occurrence data in an extension. 
@@ -55,7 +59,7 @@ This extension was designed to also publish absence data indicated by an appropi
 # Event
 EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data [with the help of the IPT](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
 
-![alt text](event-core.png)
+![event](event.png)
 
 The (Recording)Event core holds data about the where and when, so it covers all terms from Location, GeologicalContext and Event. 
 To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffort from the Event group can be used.
@@ -81,6 +85,9 @@ Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms
 TODO: Newly proposed material, environment, biome terms from MiXS and existing dwc:habitat. EnVO ...
 
 ## "Specimen" core
+
+![sample](sample1.png)
+
 As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [MaterialSample core](http://rs.gbif.org/sandbox/core/dwc_material_sample.xml) that contains all terms a simple [Occurrence](#Occurrence) core also provides, but using the rowType *dwc:MaterialSample* with the *dwc:materialSampleID* identifier instead of *dwc:occurrenceID*.
 
 It is proposed to use this rowType for all specimens, fossils and living organisms to make them distinct from pure observations which should still be using the *dwc:Occurrence* core. It can then also be used to publish data from the Global Genome Biodiversity Network, see [TDWG 2013 report](TDWG2013GGBNWGReport_final.docx).
@@ -90,6 +97,9 @@ An important requirement for (DNA) sampling is that one can follow back the chai
 As the core contains the Taxon and Identification terms it can only be used to describe samples that contain (or a derived from?) a single taxon. This prevents it's use for environmental samples.
 
 ## Occurrence extension
+
+![sample](sample2.png)
+
 Based on the needs for environmental sampling and their subsequent metagenomic DNA sequencing the MaterialSample core could be restricted to just the sampling event covering terms from Location, Event, GeologicalContext and MaterialSample. Taxon abundance data would be stored in an *dwc:Occurrence* extension that covers the remaining Taxon, Identification and Occurrence terms. This setup is very much the same as for sample-based data using the *dwc:Event* core, but using the *dwc:MaterialSample* rowType and a different *dwc:materialSampleID* identifier.
 
 For metagenomic results every cell of an [OTU abundance table](http://www.wernerlab.org/teaching/qiime/overview/c) would become an occurrence extension record with the abundance given using the [new term](#abundance-term). A standard format for OTU tables is the [biom format](http://biom-format.org/documentation/biom_format.html).
