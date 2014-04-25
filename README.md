@@ -7,7 +7,7 @@ This document tries to cover current or intendend uses of Darwin Core Archives t
  * GBIF how to guide: http://www.gbif.org/resources/2552
  * Official meta.xml specs: http://rs.tdwg.org/dwc/terms/guides/text/index.htm
 
-Uses cases are divided up by the core class used in the archive, specified as the *rowType* in the [meta.xml](http://rs.tdwg.org/dwc/terms/guides/text/index.htm).
+Uses cases are divided up by the core class used in the archive, specified as the *rowType* in the *meta.xml*.
 
 # Occurrence
 Classic, simple and flat records using the Occurrence rowType with all available dwc terms (only excluding [MeasurementsAndFacts](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) and [ResourceRelationship](http://rs.gbif.org/extension/dwc/resource_relation.xml) terms).
@@ -25,7 +25,7 @@ Archives using the Taxon class as the core are mostly referred to as *checklists
 ![taxon](taxon.png)
 
 ### Occurrence extension
-The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the *materials cited* section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large chinese checklist as part of Species2000 with occurrence data in an extension. 
+The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the materials cited section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large chinese checklist as part of Species2000 with occurrence data in an extension. 
 
 As the taxon terms are already used in the core the Occurrence extension covers the remaining Location, Event, GeologicalContext, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecord).
 
@@ -57,7 +57,7 @@ This extension was designed to also publish absence data indicated by an appropi
 
 
 # Event
-EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data [with the help of the IPT](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
+EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data. A modified IPT offering an Event core has been setup at http://eubon-ipt.gbif.org/ and a proposal is documented in [GBIF-IPT-for-sample-data.docx](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
 
 ![event](event.png)
 
@@ -67,6 +67,12 @@ To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffor
 Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
 
 The core event records would use *dwc:eventID* as the primary key to the core records.
+
+
+__Example__ *Rhine Main Observatory Aquatic Invertebrates Biodiversity*:
+ * DwC archive: http://eubon-ipt.gbif.org/archive.do?r=rhine-main-observatory-aquatic-invertebrates
+ * IPT dataset page: http://eubon-ipt.gbif.org/resource.do?r=rhine-main-observatory-aquatic-invertebrates
+
 
 ## Occurrence extension
 Using the Occurrence rowType as an extension to the Event core (together with some [abundance term](#abundance-term)) allows to publish species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data.
