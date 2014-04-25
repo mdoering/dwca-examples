@@ -90,11 +90,11 @@ Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms
 
 In order to distinguish the kind of sample basisOfRecord can be used if the vocabulary is extended. 
 
-### ENVO
-The environment from which a material sample is derived needs to be described. The Environment Ontology [ENVO] (http://environmentontology.org/) provides a controlled vocabulary for the description of environments, providing greater granularity than is currently possible with the Darwin Core *habitat* term. In addition to [habitat](http://purl.obolibrary.org/obo/ENVO_00002036), ENVO provides three broad classifications for environment - biome, feature, and material. Using ENVO in Darwin Core would allow for standardised searches across environmental descriptions for a broad range of species/samples, including metagenomic samples which use the [MiXS](http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html) standard which already specifies use of ENVO terms. 
+### EnvO
+The environment from which a material sample is derived needs to be described. The Environment Ontology [EnvO] (http://environmentontology.org/) provides a controlled vocabulary for the description of environments, providing greater granularity than is currently possible with the Darwin Core *habitat* term. In addition to [habitat](http://purl.obolibrary.org/obo/ENVO_00002036), EnvO provides three broad classifications for environment - biome, feature, and material. Using ENVO in Darwin Core would allow for standardised searches across environmental descriptions for a broad range of species/samples, including metagenomic samples which use the [MiXS](http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html) standard which already specifies use of EnvO terms. 
  
 
-Currently under review is a proposal that the value of the Darwin Core *habitat* property be selected from the ENVO habitat class and that three new properties (environmental material, environmental feature, and biome) be added to Darwin Core and their values drawn from the equivalent ENVO classes.
+Currently under review is a proposal that the value of the Darwin Core *habitat* property be selected from the EnvO habitat class and that three new properties (environmental material, environmental feature, and biome) be added to Darwin Core and their values drawn from the equivalent EnvO classes.
 
 
 ### "Specimen" core
