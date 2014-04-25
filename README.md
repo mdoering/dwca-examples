@@ -38,7 +38,7 @@ __Example checklist__ *3i - Cicadellinae Database*:
 ### TypesAndSpecimen extension
 Alternatively to an extension based on the Occurrence rowType GBIF had previously defined a special, small extension to publish the type material found in taxonomic literature: http://rs.gbif.org/extension/gbif/1.0/typesandspecimen.xml
 
-It is pretty much a subset of Occurrence and was designed before anyone was using the Occurrence rowType as an extension. Note that there is no occurrenceID or any other similar identifier in this extension. The extension is in use by some checklist datasets, notably the datasets published by the [Species File Group](http://www.gbif.org/publisher/47a779a6-a230-4edd-b787-19c3d2c80ab5). Rod Page
+It is pretty much a subset of Occurrence and was designed before anyone was using the Occurrence rowType as an extension. Note that there is no occurrenceID or any other similar identifier in this extension. The extension is in use by some checklist datasets, notably the datasets published by the [Species File Group](http://www.gbif.org/publisher/47a779a6-a230-4edd-b787-19c3d2c80ab5).
 
 __Example checklist__ *Orthoptera Species File*:
  * DwC archive: http://ipt.speciesfile.org:8080/archive.do?r=orthoptera
