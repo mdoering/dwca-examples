@@ -55,6 +55,8 @@ This extension was designed to also publish absence data indicated by an appropi
 # Event
 EU BON and other initiatives are currently planning to use the [dwc:Event core](http://rs.gbif.org/sandbox/core/dwc_event.xml) to be able to publish sample-based data [with the help of the IPT](GBIF-IPT-for-sample-data.docx). Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
 
+![alt text](event-core.png)
+
 The (Recording)Event core holds data about the where and when, so it covers all terms from Location, GeologicalContext and Event. 
 To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffort from the Event group can be used.
 
