@@ -31,11 +31,11 @@ As the taxon terms are already used in the core the Occurrence extension covers 
 
 Note that GBIF requires the presence of a unique *dwc:occurrenceID* although this is not strictly mandated by the dwc archive specification which only requires an identifier for the core records, not for extensions.
 
-__Example Plazi dataset__ *"Six new species of ants from Egypt"*:
+__Example__ *"Six new species of ants from Egypt"* from Plazi:
  * DwC archive: http://plazi.cs.umb.edu/GgServer/dwca/D4F853101EB8608A8BD0E5B08F2CB167.zip
  * GBIF dataset page: http://www.gbif.org/dataset/1586aec3-17ca-44c7-ba95-a38c2a467465	
 
-__Example checklist__ *3i - Cicadellinae Database*:
+__Example__ *3i - Cicadellinae Database*:
  * DwC archive: http://ctap.inhs.uiuc.edu/dmitriev/Export/DwCArchive_Cicadellinae.zip
  * GBIF dataset page: http://www.gbif.org/dataset/26bca1b5-3ef6-4e97-9672-0058c79185fb
 
@@ -44,14 +44,14 @@ Alternatively to an extension based on the Occurrence rowType GBIF had previousl
 
 It is pretty much a subset of Occurrence and was designed before anyone was using the Occurrence rowType as an extension. Note that there is no occurrenceID or any other similar identifier in this extension. The extension is in use by some checklist datasets, notably the datasets published by the [Species File Group](http://www.gbif.org/publisher/47a779a6-a230-4edd-b787-19c3d2c80ab5).
 
-__Example checklist__ *Orthoptera Species File*:
+__Example__ *Orthoptera Species File*:
  * DwC archive: http://ipt.speciesfile.org:8080/archive.do?r=orthoptera
  * GBIF dataset page: http://www.gbif.org/dataset/af66d4cf-0fd2-434b-9334-9806a5efa6f7
 
 
 
 ### Distribution extension
-Another checklist extension was created to publish synthesized species distributions/ranges often found in Faunas and Floras. A distribution record does not listen exact point locations of a species, but instead indicate some larger area like a country or a biogeographic region: http://rs.gbif.org/extension/gbif/1.0/distribution.xml
+Another checklist extension was created to publish synthesized species ranges often found in Faunas and Floras. A distribution record does not listen exact point locations of a species, but instead indicate some larger area like a country or a biogeographic region where it is expected to exist: http://rs.gbif.org/extension/gbif/1.0/distribution.xml
 
 This extension was designed to also publish absence data indicated by an appropiate *dwc:occurrenceStatus*.
 
@@ -74,23 +74,29 @@ __Example__ *Rhine Main Observatory Aquatic Invertebrates Biodiversity*:
  * IPT dataset page: http://eubon-ipt.gbif.org/resource.do?r=rhine-main-observatory-aquatic-invertebrates
 
 
-## Occurrence extension
+### Occurrence extension
 Using the Occurrence rowType as an extension to the Event core (together with some [abundance term](#abundance-term)) allows to publish species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data.
 
 As the Event core already covers Location, GeologicalContext and Event terms, the extension data only needs to hold Taxon, Identification and Occurrence terms. In some cases the actual extension data can be very simple and only use the occurrenceID and scientificName terms. Although abundance, individualCount, occurrenceStatus, recordedBy, recordNumber, sex, establishmentMeans and lifeStage should be useful additional terms in many cases.
 
 Populating *occurrenceStatus* with *absent* allows in principle to also publish absence data as available in many surveys. It needs to be supplied explicitly for every species though so the approach is somewhat limited compared to declaring some taxonomic sampling context for the entire event or dataset.
 
-## MeasurementsAndFacts extension
+### MeasurementsAndFacts extension
 Having a [measurement extension](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) linked to a core Event allows to publish measurements about a site like temperature or soil acidity. On the downside one cannot describe measurements about a single specimen or observation as these are living in an extension as well.
 
 
 # MaterialSample
-Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms/index.htm#MaterialSample) in 2013 which can be used to publish occurrence data in new ways. A key driver for this new term are gene sequence based biodiversity data that are based on some sampling like tissue extractions, water or soil samples. Right now there are 2 different proposals existing to use a MaterialSample core in Darwin Core archives mainly differing in the cardinality of a sample and species occurrence.
+Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms/index.htm#MaterialSample) in 2013 which can be used to publish occurrence data in new ways. A key driver for this new term are gene sequence based biodiversity data that are based on some sampling like tissue extractions, water or soil samples. Right now there are 2 different proposals existing to use a MaterialSample core mainly differing in the cardinality of a sample and species occurrences.
 
-TODO: Newly proposed material, environment, biome terms from MiXS and existing dwc:habitat. EnVO ...
+In order to distinguish the kind of sample basisOfRecord can be used if the vocabulary is extended. 
+In addition to that 3 terms found in the [GSC MiXS](http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html) standard are expected to be also added to Darwin Core which would provide a good characterization of a sample. For all three terms it is recommended to use the matching [Environment Ontology](http://environmentontology.org/) vocabulary as values.
 
-## "Specimen" core
+ * _biome_:
+ * _environmentalMaterial_: Material in or on which organisms live.
+ * _environmentalFeature_:
+ 
+
+### "Specimen" core
 
 ![sample](sample1.png)
 
@@ -102,7 +108,7 @@ An important requirement for (DNA) sampling is that one can follow back the chai
 
 As the core contains the Taxon and Identification terms it can only be used to describe samples that contain (or a derived from?) a single taxon. This prevents it's use for environmental samples.
 
-## Occurrence extension
+### Occurrence extension
 
 ![sample](sample2.png)
 
@@ -115,7 +121,9 @@ For metagenomic results every cell of an [OTU abundance table](http://www.werner
 # Open questions
 ### Abundance term
 What exact new terms are needed to model various ways of measuring species abundance.
-Open Darwin Core issues [#142](https://code.google.com/p/darwincore/issues/detail?id=142) & [#187](https://code.google.com/p/darwincore/issues/detail?id=187)
+Open Darwin Core issues:
+ * https://code.google.com/p/darwincore/issues/detail?id=142
+ * https://code.google.com/p/darwincore/issues/detail?id=187
 
 ### ResourceRelationship, eventSeries or parentEventID
 
