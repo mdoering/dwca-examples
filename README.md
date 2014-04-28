@@ -1,13 +1,21 @@
-Darwin Core Archive Examples
+Darwin Core Archive: Summary of use 
 =============
 
-This document addresses current or intended uses of Darwin Core (DwC) Archives that contain some sort of primary biodiversity data, i.e. primary species occurrence records. The intent is not to explain the Darwin Core Archives format as such, or Darwin Core in general, and assumes the reader knows about the technical details. For further information, please use the following sources:
+The Darwin Core Archive (DwC-A) standard is the predominant standard for primary biodiversity data exchange within the GBIF network.  As the GBIF community is expanding into new types of data such as occurrences derived from sampling protocols, various proposals for using the DwC-A format have emerged, some including proposals for new core types.
+
+This document aims to 
+   1. concisely summarize the proposed formats of DwC-A
+   2. provide links to reference datasets for each type
+   3. provide links to proposed new cores and extension definitions
+   4. provide observations on the key decisions needed
+
+Uses cases are providedcfor each community, categorized by the core class used in the archive, specified as the *rowType* in the *meta.xml*.
+
+This summary is intended for audiences already familiar with the DwC-A format.  For those interested in learning more about the DwC-A format in general, please use the following sources:
 
  * Darwin Core Terms: http://rs.tdwg.org/dwc/terms/index.htm
  * GBIF how to guide: http://www.gbif.org/resources/2552
  * Official meta.xml specs: http://rs.tdwg.org/dwc/terms/guides/text/index.htm
-
-Uses cases are divided up by the core class used in the archive, specified as the *rowType* in the *meta.xml*.
 
 # Occurrence
 Classic, simple and flat records using the Occurrence rowType with all available dwc terms (only excluding [MeasurementOrFact](http://rs.gbif.org/extension/dwc/measurements_or_facts.xml) and [ResourceRelationship](http://rs.gbif.org/extension/dwc/resource_relation.xml) terms).
@@ -66,7 +74,7 @@ To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffor
 
 Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
 
-The core event records would use *dwc:eventID* as the primary key to the core records. The *dwc:basisOfRecord* should be Observation????
+> *DECISION*: The core event records would use *dwc:eventID* as the primary key to the core records. The *dwc:basisOfRecord* should be Observation?
 
 
 __Example__ *Rhine Main Observatory Aquatic Invertebrates Biodiversity*:
