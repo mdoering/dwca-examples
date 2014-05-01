@@ -9,7 +9,7 @@ This document aims to
    3. provide links to proposed new cores and extension definitions
    4. provide observations on the key decisions needed
 
-Uses cases are providedcfor each community, categorized by the core class used in the archive, specified as the *rowType* in the *meta.xml*.
+Use cases are provided for each community, categorized by the core class used in the archive, specified as the *rowType* in the *meta.xml*.
 
 This summary is intended for audiences already familiar with the DwC-A format.  For those interested in learning more about the DwC-A format in general, please use the following sources:
 
@@ -33,11 +33,11 @@ Archives using the Taxon class as the core are mostly referred to as *checklists
 ![taxon](taxon.png)
 
 ### Occurrence extension
-The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the materials cited section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large chinese checklist as part of Species2000 with occurrence data in an extension. 
+The Occurrence class is used here as an extension. It is in use by Plazi and Pensoft to list the specimens from the materials cited section of a taxonomic treatment. The Chinese Academy of Sciences is about to publish a large Chinese checklist as part of Species2000 with occurrence data in an extension.
 
-As the taxon terms are already used in the core the Occurrence extension covers the remaining Location, Event, GeologicalContext, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecord).
+As the taxon terms are already used in the core, the Occurrence extension covers the remaining Location, Event, GeologicalContext, Identification & Occurrence terms. In theory the extension could also be used to list observations (again indicated by dwc:basisOfRecord).
 
-Note that GBIF requires the presence of a unique *dwc:occurrenceID* although this is not strictly mandated by the DwC archive specification which only requires an identifier for the core records, not for extensions.
+Note that GBIF requires the presence of a unique *dwc:occurrenceID* in order to index the occurrence records in the Occurrence extension, although this is not strictly mandated by the DwC archive specification which only requires an identifier for the core records, not for extensions.
 
 __Example__ *"Six new species of ants from Egypt"* from Plazi:
  * DwC archive: http://plazi.cs.umb.edu/GgServer/dwca/D4F853101EB8608A8BD0E5B08F2CB167.zip
@@ -61,7 +61,7 @@ __Example__ *Orthoptera Species File*:
 ### Distribution extension
 Another checklist extension was created to publish synthesized species ranges often found in Faunas and Floras. A distribution record does not listen exact point locations of a species, but instead indicates some larger area like a country or a biogeographic region where it is expected to exist: http://rs.gbif.org/extension/gbif/1.0/distribution.xml
 
-This extension was designed to also publish absence data indicated by an appropiate *dwc:occurrenceStatus*.
+This extension was designed to also publish absence data indicated by an appropriate *dwc:occurrenceStatus*.
 
 
 # Event
@@ -74,7 +74,7 @@ To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffor
 
 Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
 
-> *DECISION*: The core event records would use *dwc:eventID* as the primary key to the core records. The *dwc:basisOfRecord* should be Observation?
+> *DECISION*: The core event records would use *dwc:eventID* as the primary key to the core records. The *dc:type* should be Event.
 
 
 __Example__ *Rhine Main Observatory Aquatic Invertebrates Biodiversity*:
@@ -99,19 +99,19 @@ Darwin Core added a new class term [MaterialSample](http://rs.tdwg.org/dwc/terms
 In order to distinguish the kind of sample basisOfRecord can be used if the vocabulary is extended. 
 
 ### EnvO
-The environment from which a material sample is derived needs to be described. The Environment Ontology [EnvO] (http://environmentontology.org/) provides a controlled vocabulary for the description of environments, providing greater granularity than is currently possible with the Darwin Core *habitat* term. In addition to [habitat](http://purl.obolibrary.org/obo/ENVO_00002036), EnvO provides three broad classifications for environment - biome, feature, and material. Using ENVO in Darwin Core would allow for standardised searches across environmental descriptions for a broad range of species/samples, including metagenomic samples which use the [MiXS](http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html) standard which already specifies use of EnvO terms. 
+The environment from which a material sample is derived needs to be described. The Environment Ontology [EnvO] (http://environmentontology.org/) provides a controlled vocabulary for the description of environments, providing greater granularity than is currently possible with the Darwin Core *habitat* term. In addition to [habitat](http://purl.obolibrary.org/obo/ENVO_00002036), EnvO provides three broad classifications for environment - biome, feature, and material. Using EnvO in Darwin Core would allow for standardised searches across environmental descriptions for a broad range of species/samples, including metagenomic samples which use the [MiXS](http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html) standard which already specifies use of EnvO terms.
  
 
-Currently under review is a proposal that the value of the Darwin Core *habitat* property be selected from the EnvO habitat class and that three new properties (environmental material, environmental feature, and biome) be added to Darwin Core and their values drawn from the equivalent EnvO classes.
+Currently under review is a proposal that the value of the Darwin Core *habitat* term be selected from the EnvO habitat class and that three new terms (environmental material, environmental feature, and biome) be added to Darwin Core and their values drawn from the equivalent EnvO classes.
 
 
 ### "Specimen" core
 
 ![sample](sample1.png)
 
-As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [MaterialSample core](http://rs.gbif.org/sandbox/core/dwc_material_sample.xml) that contains all terms a simple [Occurrence](#Occurrence) core also provides, but using the rowType *dwc:MaterialSample* with the *dwc:materialSampleID* identifier instead of *dwc:occurrenceID*.
+As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [MaterialSample core](http://rs.gbif.org/sandbox/core/dwc_material_sample.xml) that contains all terms a simple [Occurrence](http://rs.gbif.org/core/dwc_occurrence.xml) core also provides, but using the rowType *dwc:MaterialSample* with the *dwc:materialSampleID* identifier instead of *dwc:occurrenceID*.
 
-It is proposed to use this rowType for all specimens, fossils and living organisms to make them distinct from pure observations which should still be using the *dwc:Occurrence* core. It can then also be used to publish data from the Global Genome Biodiversity Network (see [TDWG 2013 report](TDWG2013GGBNWGReport_) where the main use case relates to DNA/tissue extraction and ability to follow a  chain of sampling/extracting. For this the generic ResourceRelationship extension could be used, again, if there is a shared, globally understood vocabulary. Alternatively, a new term such as *parentMaterialSampleID* could build up such a link. The problem is very much the same as for [relating events](#resourcerelationship-eventseries-or-parenteventid).
+It is proposed to use this rowType for all specimens, fossils and living organisms to make them distinct from pure observations which should still be using the *dwc:Occurrence* core. It can then also be used to publish data from the Global Genome Biodiversity Network (see [TDWG 2013 report](TDWG2013GGBNWGReport) where the main use case relates to DNA/tissue extraction and ability to follow a  chain of sampling/extracting.
 
 An important requirement for (DNA) sampling is that one can follow back the chain of sampling/extracting. For this the generic ResourceRelationship extension could be used again if there is a shared, globally understood vocabulary. Alternatively a new term such as *parentMaterialSampleID* could build up such a link. The problem is very much the same as for [relating events](#resourcerelationship-eventseries-or-parenteventid).
 
