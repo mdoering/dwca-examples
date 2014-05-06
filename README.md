@@ -22,7 +22,7 @@ Classic, simple and flat records using the Occurrence rowType with all available
 
 ![occurrence](occurrence.png)
 
-The location, event and taxon identification terms are all included in the core and a single occurrence record must therefore be taxonomically homogeneous. It is adequate though to publish a single record for multiple individuals - dwc:individualCount can be used to declare exact numbers or a [new term currently under discussion][abundance] for a more general abundance/quantity measurement suitable also for organisms like protists, fungi, grasses, etc.
+The location, event and taxon identification terms are all included in the core and a single occurrence record must therefore be taxonomically homogeneous. It is adequate though to publish a single record for multiple individuals - dwc:individualCount can be used to declare exact numbers or a set of new terms currently under discussion (see the Event section below) for a more general abundance/quantity measurement suitable also for organisms like protists, fungi, grasses, etc.
 
 The *dwc:basisOfRecord* term is used in this scenario to mark specimen, fossil, observation or living organism records. 
 
@@ -75,16 +75,16 @@ The (Recording)Event core holds data about the where and when, so it covers all 
 
 To describe the exact kind of survey, dwc:samplingProtocol and dwc:samplingEffort from the Event group can be used.
 
-> *QUESTION*: Is there a need to also have a eventType or use basisOfRecord for the kind of Event?
+> *QUESTION*: Is there a need to also have a eventType or overload basisOfRecord for the kind of Event?
 
 
-Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeries* or *parentEventID* might be better suited. 
+Systematic surveys often need to relate sampling events with each other. To do that the generic ResourceRelationship extension could be used, but a distinct new term like *eventSeriesID* or *parentEventID* might be better suited. 
 
-> *QUESTION*: Add a new term *eventSeries* or *parentEventID*?
+> *QUESTION*: Add a new term *eventSeriesID* or *parentEventID*?
 
 
 ### Occurrence extension
-Using an [Occurrence extension][eventocc-ext] to the Event core together with some proposed new terms relating to [abundance][abundance] - specifically *quantity* and *quantityType* - allows for publishing species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data. Not that the extension draft uses a new rowType *gbif:EventOccurrence* in order to distinguish it from the full, simple Occurrence. As the extension record does represent a true Occurrence the regular *dwc:Occurrence* rowType seems to be preferrable.
+Using an [Occurrence extension][eventocc-ext] to the Event core together with some proposed new terms relating to abundance - specifically *quantity* and *quantityType* - allows for publishing species abundance matrices found in sample-based data such as Braun Blanquet vegetation plots or long term monitoring data. Not that the extension draft uses a new rowType *gbif:EventOccurrence* in order to distinguish it from the full, simple Occurrence. As the extension record does represent a true Occurrence the regular *dwc:Occurrence* rowType seems to be preferrable.
 
 > *DECISION*: Establish new terms *dwc:quantity* and *dwc:quantityType* together with an initial vocabulary for recommended quantityType values. See Darwin Core issues [dwc142] and [dwc187]
 
@@ -100,6 +100,9 @@ __Example__ *Rhine Main Observatory Aquatic Invertebrates Biodiversity*:
  * IPT dataset page: http://eubon-ipt.gbif.org/resource.do?r=rhine-main-observatory-aquatic-invertebrates
 
 
+### MaterialSample extension
+A product of a recording event could also be physical samples, not just observations. Pending the question whether specimens are MaterialSample or Occurrence (see below) an Event core should also support a MaterialSample extension incl quantity terms very similar to the Occurrence extension.
+
 ### MeasurementOrFact extension
 Having a [measurement extension][fact-ext] linked to a core Event allows to publish measurements about a site like temperature or soil acidity. On the downside one cannot describe measurements about a single specimen or observation as these are living in an extension as well.
 
@@ -109,14 +112,15 @@ Darwin Core added a new class term [MaterialSample][dwc:msample] in 2013 which c
 
 > *QUESTION*: When should the *Event* core be used instead of the *MaterialSample* core? Is the distinction here again the physical sampling, similar to single observation records (Occurrence) versus specimen (MaterialSample)?
 
-In order to distinguish the kind of sample basisOfRecord can be used if the vocabulary is extended. 
-
 ### EnvO
 The environment from which a material sample is derived needs to be described. The Environment Ontology [EnvO][envo] provides a controlled vocabulary for the description of environments, providing greater granularity than is currently possible with the Darwin Core *habitat* term. In addition to [habitat][dwc:habitat], EnvO provides three broad classifications for environment - biome, feature, and material. Using EnvO in Darwin Core would allow for standardised searches across environmental descriptions for a broad range of species/samples, including metagenomic samples which use the [MiXS][mixs] standard which already specifies use of EnvO terms.
 
 Currently under review is a proposal that the value of the Darwin Core *habitat* term be selected from the EnvO habitat class and that three new terms (environmental material, environmental feature, and biome) be added to Darwin Core and their values drawn from the equivalent EnvO classes.
 
-> *QUESTION*: How should the type of sample be expressed? Is it good enough to use the EnvO terms if they get added or do we need a new term *materialSampleType* or overload the use of *basisOfRecord*?
+### sampleType
+In order to distinguish the kind of sample, e.g. DNA extract, tissue, whole organism, lot, environmental sample, basisOfRecord could be used if the vocabulary is extended. However that might lead to a very overloaded and confusing vocabulary. It might be better to create a dedicated vocabulary for a new materialSampleType term.
+
+> *QUESTION*: Create a new term *materialSampleType* to express the kind of sample?
 
 
 ### "Specimen" core
@@ -127,7 +131,7 @@ As an outcome of the GSC16 BCO Hackathon in Oxford John Wiezcoreck created a [Ma
 
 It is proposed to use this rowType for all specimens, fossils and living organisms to make them distinct from pure observations which should still be using the *dwc:Occurrence* core. It can then also be used to publish data from the Global Genome Biodiversity Network (see [TDWG 2013 report][tdwg2013] where the main use case relates to DNA/tissue extraction and ability to follow a  chain of sampling/extracting.
 
-An important requirement for (DNA) sampling is that one can follow back the chain of sampling/extracting. For this the generic ResourceRelationship extension could be used again if there is a shared, globally understood vocabulary. Alternatively a new term such as *parentMaterialSampleID* could build up such a link. The problem is very much the same as for relating events with the proposed *eventSeries*.
+An important requirement for (DNA) sampling is that one can follow back the chain of sampling/extracting. For this the generic ResourceRelationship extension could be used again if there is a shared, globally understood vocabulary. Alternatively a new term such as *parentMaterialSampleID* could build up such a link. The problem is very much the same as for relating events with the proposed *eventSeriesID*.
 
 > *QUESTION*: Create a new term *parentMaterialSampleID*?
 
@@ -139,16 +143,13 @@ As the core contains the Taxon and Identification terms it can only be used to d
 
 Based on the needs for environmental sampling and their subsequent metagenomic DNA sequencing the MaterialSample core could be restricted to just the sampling event covering terms from Location, Event, GeologicalContext and MaterialSample. Taxon abundance data would be stored in an *dwc:Occurrence* extension that covers the remaining Taxon, Identification and Occurrence terms. This setup is very much the same as for sample-based data using the *dwc:Event* core, but using the *dwc:MaterialSample* rowType and a different *dwc:materialSampleID* identifier.
 
-For metagenomic results every cell of an [OTU abundance table][21] would become an occurrence extension record with the abundance given using the [new term][22]. A standard format for OTU tables is the [biom format][23].
+For metagenomic results every cell of an [OTU abundance table][otu-table] would become an occurrence extension record with the abundance given using the quantity terms under discussion. A standard format for OTU tables is the [biom format][biom].
 
 > *QUESTION*: Should a *MaterialSample* core be restricted to Location, Event, GeologicalContext and MaterialSample or contain all simple occurrence terms?
 
 > *QUESTION*: Should the recommended rowType for a simple specimen record be *MaterialSample* or *Occurrence*?
 
 
-
-
-[abundance]:	#abundance-term
 
 [occ-core]:	http://rs.gbif.org/core/dwc_occurrence.xml
 [event-core]:	http://rs.gbif.org/sandbox/core/dwc_event.xml
@@ -170,7 +171,7 @@ For metagenomic results every cell of an [OTU abundance table][21] would become 
 [SFG]:	http://www.gbif.org/publisher/47a779a6-a230-4edd-b787-19c3d2c80ab5
 [envo]:	http://environmentontology.org/
 [mixs]:	http://www.nature.com/nbt/journal/v29/n5/full/nbt.1823.html
-[qiime]:	http://www.wernerlab.org/teaching/qiime/overview/c
+[otu-table]:	http://www.wernerlab.org/teaching/qiime/overview/c
 [biom]:	http://biom-format.org/documentation/biom_format.html
 
 [dwc142]: https://code.google.com/p/darwincore/issues/detail?id=142
