@@ -63,6 +63,11 @@ Another checklist extension was created to publish synthesized species ranges of
 
 This extension was designed to also publish absence data indicated by an appropriate *dwc:occurrenceStatus*.
 
+__Example__ *Coreoidea Species File*:
+ * DwC archive: http://ipt.speciesfile.org:8080/archive.do?r=coreoidea
+ * GBIF dataset page: http://www.gbif.org/dataset/e0a61544-c923-4fd7-8ed1-9b692655cf6b
+
+
 
 # Event
 The use of Darwin Core for sample-based data was explored in a recent [workshop][dwc-may] and currently, GBIF, as a partner in the EU BON project is [investigating][eubon-proposal] the use of the [dwc:Event core][event-core] to publish sample-based data using a special prototype of the [IPT][ipt] which is available at http://eubon-ipt.gbif.org/. Sample-based data is a type of data available from thousands of environmental, ecological, and natural resource investigations. These can be one-off studies or monitoring programmes. Such data are usually quantitative, calibrated, and follow certain protocols, so that changes and trends of populations can be detected.  This is in contrast to opportunistic observation and collection data, which today form a significant proportion of openly accessible biodiversity data.
